@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Row, Col } from 'antd';
-import Cart from '../cart/Cart';
+import CartContainer from '../cart/CartContainer';
 
 const { Header } = Layout;
 
@@ -30,7 +30,7 @@ const AppHeader = () => {
             </Menu>
           </Col>
           <Col>
-            <Cart/>
+            <CartContainer />
           </Col>
         </Row>
       </Header>

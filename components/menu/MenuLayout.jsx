@@ -8,11 +8,7 @@ export default class MenuLayout extends React.Component {
 		return items.map((item, index) => {
 			return (
 				<Col key={index} span={6}>
-					<MenuItem 
-						title={item.name} 
-						description={item.description}
-						options={item.options}
-					/>
+					<MenuItem item={item} />
 				</Col>
 			);
 		})
