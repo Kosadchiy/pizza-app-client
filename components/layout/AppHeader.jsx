@@ -1,21 +1,38 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import Link from 'next/link';
+import { Layout, Menu, Row, Col } from 'antd';
+import Cart from '../cart/Cart';
 
 const { Header } = Layout;
 
 const AppHeader = () => {
     return (
       <Header>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['1']}
-          style={{ lineHeight: '64px' }}
-        >
-          <Menu.Item key="1">About</Menu.Item>
-          <Menu.Item key="2">Menu</Menu.Item>
-        </Menu>
+        <Row type="flex" justify="space-between" style={{textAlign: 'right'}}>
+          <Col>
+            <div className="logo" />
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['1']}
+              style={{ lineHeight: '64px' }}
+            >
+              <Menu.Item key="1">
+                <Link href="/">
+                  <a>About</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link href="/menu">
+                  <a>Menu</a>
+                </Link>
+              </Menu.Item>
+            </Menu>
+          </Col>
+          <Col>
+            <Cart/>
+          </Col>
+        </Row>
       </Header>
     );
 }

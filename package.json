@@ -12,6 +12,7 @@
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
     "antd": "^3.26.8",
+    "axios": "^0.19.2",
     "dotenv-webpack": "^1.7.0",
     "less": "^3.10.3",
     "next": "^9.2.1",
