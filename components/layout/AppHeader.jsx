@@ -39,6 +39,11 @@ const AppHeader = ({ router }) => {
               <Col>
                 <CartContainer />
               </Col>
+              <Col>
+                <Link href="/login">
+                  <a style={{color: '#FFF'}}>Login</a>
+                </Link>
+              </Col>
             </Row>
           </Col>
         </Row>
