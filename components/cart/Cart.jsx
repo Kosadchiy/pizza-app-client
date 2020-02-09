@@ -1,13 +1,25 @@
-import { List, Popover, Button } from 'antd';
+import { List, Popover, Button, Spin } from 'antd';
 import React from 'react';
 import CartItem from './CartItem';
 import { getCart } from '../../utils/localStorage';
+import Cookie from 'js-cookie';
+import { setUSDRate, getMoneyView } from '../../utils/currencyHelper';
 
 export default class Cart extends React.Component {
-  componentDidMount = () => {
+  state = {
+    loading: true
+  }
+
+  componentDidMount = async () => {
     const cart = getCart();
     if (cart)
       this.props.updateCart(cart);
+
+    if (!Cookie.get('USDRate'))
+      await setUSDRate();
+    this.setState({
+      loading: false
+    });
   }
 
   cartContent = () => {
@@ -18,9 +30,12 @@ export default class Cart extends React.Component {
         size="large"
         footer={
           <div>
-            <span style={{fontWeight: 700, fontSize: 18}}>
-              {this.props.cart.total}
-            </span>
+            {
+              this.state.loading ? <Spin /> : 
+              <span style={{fontWeight: 700, fontSize: 18}}>
+                {getMoneyView(this.props.cart.total, this.props.currency)}
+              </span>
+            }
           </div>
         }
         pagination={false}
@@ -30,6 +45,8 @@ export default class Cart extends React.Component {
             cart={this.props.cart}
             index={index} 
             item={item} 
+            currency={this.props.currency}
+            loading={this.state.loading}
             updateCart={this.props.updateCart} 
           />
         )}
@@ -41,9 +58,12 @@ export default class Cart extends React.Component {
 		return (
       <Popover placement="bottomRight" trigger="click" content={this.cartContent()} title="Shopping cart">
         <Button type="primary" icon="shopping-cart" />
-        <span style={{color: '#FFF', paddingLeft: 10}}>
-          {this.props.cart.total}
-        </span>
+        {
+          this.state.loading ? <Spin /> : 
+          <span style={{color: '#FFF', paddingLeft: 10}}>
+            {getMoneyView(this.props.cart.total, this.props.currency)}
+          </span>
+        }
       </Popover>
     );
 	};

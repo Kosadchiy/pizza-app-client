@@ -1,6 +1,7 @@
 import { List, Badge, Icon, Button } from 'antd';
 import React from 'react';
 import { setCart } from '../../utils/localStorage';
+import { getMoneyView } from '../../utils/currencyHelper';
 
 export default class CartItem extends React.Component {
   increase = () => {
@@ -16,14 +17,27 @@ export default class CartItem extends React.Component {
 
   decline = () => {
     this.props.cart.items.forEach(item => {
-      if (item === this.props.item) {
+      if (item === this.props.item && item.qty > 1) {
         item.qty -= 1;
+        this.props.cart.total -= this.props.item.price;
+        setCart(this.props.cart);
+        this.props.updateCart(this.props.cart);
+        return;
       }
     });
-    this.props.cart.total -= this.props.item.price;
-    setCart(this.props.cart);
-    this.props.updateCart(this.props.cart);
   };
+
+  onDelete = () => {
+    this.props.cart.items.forEach((item, index) => {
+      if (item === this.props.item) {
+        this.props.cart.items.splice(index, 1);
+        this.props.cart.total -= this.props.item.price * this.props.item.qty;
+        setCart(this.props.cart);
+        this.props.updateCart(this.props.cart);
+        return;
+      }
+    });
+  }
 
   render () {
 		return (
@@ -58,9 +72,20 @@ export default class CartItem extends React.Component {
           <Button size="small" onClick={this.increase}>
             <Icon type="plus" />
           </Button>
+          <Button 
+            type="danger" 
+            shape="circle" 
+            icon="delete" 
+            size="small" 
+            style={{marginLeft: 10}} 
+            onClick={this.onDelete}
+          />
         </div><br/>
         <span style={{fontWeight: 700}}>
-          Subtotal: {this.props.item.price * this.props.item.qty}
+          {
+            this.props.loading ? '...' :
+            `Subtotal: ${getMoneyView((this.props.item.price * this.props.item.qty), this.props.currency)}`
+          }
         </span>
       </List.Item>
     );

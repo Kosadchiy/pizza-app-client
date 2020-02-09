@@ -8,6 +8,7 @@ class CartContainer extends React.Component {
 		return (
       <Cart 
         cart={this.props.cart} 
+        currency={this.props.currency}
         updateCart={this.props.updateCart} 
       />
     );
@@ -16,7 +17,8 @@ class CartContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    currency: state.app.currency
   };
 }
 

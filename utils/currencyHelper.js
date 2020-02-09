@@ -4,6 +4,14 @@ import Cookie from 'js-cookie';
 const endpoint = process.env.FIXER_ENDPOINT;
 const apiKey = process.env.FIXER_API_KEY;
 
+export const setCurrency = (currency) => {
+  Cookie.set('currency', currency);
+}
+
+export const getCurrency = () => {
+  return Cookie.get('currency');
+}
+
 export const getUSDRate = async () => {
   return await axios
     .get(`${endpoint}?access_key=${apiKey}`)

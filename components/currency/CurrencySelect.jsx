@@ -1,25 +1,37 @@
 import React from 'react';
 import { Select } from 'antd';
 import { connect } from 'react-redux';
-import { setUSDRate } from '../../utils/currencyHelper';
+import { setUSDRate, setCurrency, getCurrency } from '../../utils/currencyHelper';
 import { setAppCurrency } from '../../store/actions';
 
 const { Option } = Select;
 
 class CurrencySelect extends React.Component {
+  componentDidMount () {
+    const currency = getCurrency();
+    if (currency) {
+      this.props.setAppCurrency(currency);
+    } else {
+      setCurrency('EUR');
+      this.props.setAppCurrency('EUR');
+    }
+  }
+
   handleChange = async (value) => {
     if (value === 'USD') {
+      setCurrency('USD');
       const rate = await setUSDRate();
-      if (typeof rate === 'number')
+      if (typeof rate === 'number') {}
         this.props.setAppCurrency('USD');
     } else {
+      setCurrency('EUR');
       this.props.setAppCurrency('EUR');
     }
   }
 
 	render () {
 		return (
-			<Select defaultValue="EUR" style={{ width: 120 }} onChange={this.handleChange}>
+			<Select value={this.props.app.currency} style={{ width: 120 }} onChange={this.handleChange}>
         <Option value="EUR">EUR</Option>
         <Option value="USD">USD</Option>
       </Select>
