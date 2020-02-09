@@ -39,7 +39,7 @@ export default class Cart extends React.Component {
 
   render () {
 		return (
-      <Popover placement="bottom" trigger="click" content={this.cartContent()} title="Shopping cart">
+      <Popover placement="bottomRight" trigger="click" content={this.cartContent()} title="Shopping cart">
         <Button type="primary" icon="shopping-cart" />
         <span style={{color: '#FFF', paddingLeft: 10}}>
           {this.props.cart.total}

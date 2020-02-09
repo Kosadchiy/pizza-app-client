@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Row, Col } from 'antd';
 import CartContainer from '../cart/CartContainer';
+import CurrencySelect from '../currency/CurrencySelect';
 
 const { Header } = Layout;
 
@@ -30,7 +31,14 @@ const AppHeader = () => {
             </Menu>
           </Col>
           <Col>
-            <CartContainer />
+            <Row type="flex" justify="space-between" gutter={20}>
+              <Col>
+                <CurrencySelect />
+              </Col>
+              <Col>
+                <CartContainer />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Header>

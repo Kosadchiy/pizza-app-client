@@ -1,13 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Radio, Statistic, Row, Col, Button } from 'antd';
+import { Radio, Spin, Statistic, Row, Col, Button } from 'antd';
 import { updateCart } from '../../store/cart/actions';
 import { setCart } from '../../utils/localStorage';
+import { getMoneyView, setUSDRate } from '../../utils/currencyHelper';
+import Cookie from 'js-cookie';
 
 class MenuItemContent extends React.Component {
   state = {
     price: this.props.item.options[0].price,
-    option: this.props.item.options[0].name
+    option: this.props.item.options[0].name,
+    loading: true
+  }
+
+  componentDidMount = async () => {
+    if (!Cookie.get('USDRate'))
+      await setUSDRate();
+    this.setState({
+      loading: false
+    });
   }
 
   onAddToCart = () => {
@@ -65,9 +76,18 @@ class MenuItemContent extends React.Component {
             {this.renderOptions()}
           </Radio.Group>
         </div>
-        <Row type="flex" justify="space-between" align="middle">
-          <Col span={6}>
-            <Statistic title="Price" value={this.state.price} precision={2} />
+        <Row type="flex" justify="space-between" align="bottom">
+          <Col span={8}>
+            {
+              this.state.loading ? <Spin /> : 
+              <Statistic 
+                title="Price" 
+                value={
+                  getMoneyView(this.state.price, this.props.currency)
+                } 
+                precision={2} 
+              />
+            }
           </Col>
           <Col span={6}>
           <Button type="primary" icon="shopping-cart" onClick={this.onAddToCart}>
@@ -82,7 +102,8 @@ class MenuItemContent extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    currency: state.app.currency
   };
 }
 
