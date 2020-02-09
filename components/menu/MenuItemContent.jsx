@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Radio, Spin, Statistic, Row, Col, Button } from 'antd';
 import { updateCart } from '../../store/cart/actions';
 import { setCart } from '../../utils/localStorage';
+import { successMessage } from '../../utils/api';
 import { getMoneyView, setUSDRate } from '../../utils/currencyHelper';
 import Cookie from 'js-cookie';
 
@@ -38,6 +39,7 @@ class MenuItemContent extends React.Component {
     cart.total += this.state.price;
     setCart(this.props.cart);
     this.props.updateCart(cart)
+    successMessage('Added to cart');
   }
 
   checkIfInCart = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, Statistic, Icon, Row, Col, Card, Button } from 'antd';
+import { Card } from 'antd';
 import MenuItemContent from './MenuItemContent';
 
 export default class MenuItem extends React.Component {

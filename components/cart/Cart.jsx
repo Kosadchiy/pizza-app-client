@@ -1,9 +1,10 @@
-import { List, Popover, Button, Spin } from 'antd';
+import { List, Popover, Button, Spin, Row, Col } from 'antd';
 import React from 'react';
 import CartItem from './CartItem';
 import { getCart } from '../../utils/localStorage';
 import Cookie from 'js-cookie';
 import { setUSDRate, getMoneyView } from '../../utils/currencyHelper';
+import Router from 'next/router';
 
 export default class Cart extends React.Component {
   state = {
@@ -22,6 +23,10 @@ export default class Cart extends React.Component {
     });
   }
 
+  checkout = async () => {
+    Router.push('/checkout');
+  }
+
   cartContent = () => {
     this.props
     return (
@@ -32,9 +37,18 @@ export default class Cart extends React.Component {
           <div>
             {
               this.state.loading ? <Spin /> : 
-              <span style={{fontWeight: 700, fontSize: 18}}>
-                {getMoneyView(this.props.cart.total, this.props.currency)}
-              </span>
+              <Row type="flex" justify="space-between" align="bottom">
+                <Col>
+                  <span style={{fontWeight: 700, fontSize: 18}}>
+                    {getMoneyView(this.props.cart.total, this.props.currency)}
+                  </span>
+                </Col>
+                <Col>
+                  <Button type="primary" onClick={this.checkout}>
+                    Order now
+                  </Button>
+                </Col>
+              </Row>
             }
           </div>
         }
