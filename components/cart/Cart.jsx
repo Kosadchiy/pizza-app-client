@@ -44,9 +44,12 @@ export default class Cart extends React.Component {
                   </span>
                 </Col>
                 <Col>
-                  <Button type="primary" onClick={this.checkout}>
-                    Order now
-                  </Button>
+                  {
+                    this.props.cart.total === 0 ? '' :
+                    <Button type="primary" onClick={this.checkout}>
+                      Order now
+                    </Button>
+                  }
                 </Col>
               </Row>
             }
