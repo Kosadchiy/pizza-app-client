@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 const serverHost = process.env.SERVER_HOST;
 
-const getAuthHeader = (ctx) => {
+const getAuthHeader = (ctx) => {  
   try {
     if (ctx) {
       const { access_token } = cookies(ctx);
@@ -34,16 +34,16 @@ const getAuthHeader = (ctx) => {
 }
 
 const config = (params, ctx) => {
-  const headers = getAuthHeader(ctx)
+  const headers = getAuthHeader(ctx)  
   return {
     headers: headers,
-    ...params
+    params: params
   };
 }
 
 export const get = async (endpoint, params = {}, ctx = null, onError = defaultErrorMessage) => {
   return await axios
-    .get(serverHost + endpoint, config(params, ctx))
+    .get(serverHost + endpoint, params, { headers: getAuthHeader(ctx) })
     .then((response) => {
       return response;
     })
@@ -52,7 +52,7 @@ export const get = async (endpoint, params = {}, ctx = null, onError = defaultEr
 
 export const post = async (endpoint, params = {}, ctx = null, onError = defaultErrorMessage) => {
   return await axios
-    .post(serverHost + endpoint, config(params, ctx))
+    .post(serverHost + endpoint, params, { headers: getAuthHeader(ctx) })
     .then((response) => {
       return response;
     })
