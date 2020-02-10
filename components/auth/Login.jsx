@@ -1,9 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { setAppUser } from '../../store/actions';
 import Router from 'next/router'
 import Link from 'next/link'
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
-import { post } from '../../utils/api';
+import { post, get } from '../../utils/api';
+import Cookie from 'js-cookie';
 
 class Login extends React.Component {
 
@@ -20,24 +22,30 @@ class Login extends React.Component {
       password: this.props.form.getFieldValue('password'),
       scope: ''
     });
-    console.log(response);    
+    
+    if (response.status === 200) {
+      if (this.props.form.getFieldValue('remember')) {
+        Cookie.set("access_token", response.data.access_token, { expires: 30 });
+      } else {
+        Cookie.set("access_token", response.data.access_token);
+      }
+      await this.getUser();
+    }   
   }
 
-  getUser = async (token) => {
-    const user = await axios.get(process.env.SERVER_HOST + '/api/user', 
-    {
-      headers: {
-        'Authorization': `${token.token_type} ${token.access_token}`
+  getUser = async () => {
+    const response = await get('/api/user');
+    if (response.status === 200) {
+      if (this.props.form.getFieldValue('remember')) {
+        Cookie.set("user", response.data, { expires: 30 });
+      } else {
+        Cookie.set("user", response.data);
       }
-    })
-    .then( async response => {
-      return response.data;  
-    })
-    .catch(function (error) {
-      errorMessage(error.response.data.message);
-    });
-
-    return user;
+      this.props.setAppUser(response.data);
+      Router.push('/');
+    } else {
+      Cookie.remove('access_token');
+    }
   }
 
   render() {
@@ -51,7 +59,7 @@ class Login extends React.Component {
                 rules: [{ required: true }],
               })(
                 <Input
-                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="Email"
                   name="email"
                 />
@@ -90,4 +98,14 @@ class Login extends React.Component {
   }
 }
 
-export default Form.create()(Login);
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+}
+
+const mapDispatchToProps = {
+  setAppUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login));

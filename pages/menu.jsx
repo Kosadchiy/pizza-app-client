@@ -7,10 +7,14 @@ const Menu = props => (
 );
 
 Menu.getInitialProps = async () => {
-  const data = await get('/api/menu');
-  return {
-    ...data
-  };
+  const response = await get('/api/menu');
+  if (response.status === 200) {
+    return {
+      ...response.data
+    };
+  } else {
+    return {}
+  }
 }
 
 export default Menu;

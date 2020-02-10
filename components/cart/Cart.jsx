@@ -75,12 +75,9 @@ export default class Cart extends React.Component {
 		return (
       <Popover placement="bottomRight" trigger="click" content={this.cartContent()} title="Shopping cart">
         <Button type="primary" icon="shopping-cart" />
-        {
-          this.state.loading ? <Spin /> : 
-          <span style={{color: '#FFF', paddingLeft: 10}}>
-            {getMoneyView(this.props.cart.total, this.props.currency)}
-          </span>
-        }
+        <span style={{color: '#FFF', paddingLeft: 10}}>
+          {getMoneyView(this.props.cart.total, this.props.currency)}
+        </span>
       </Popover>
     );
 	};

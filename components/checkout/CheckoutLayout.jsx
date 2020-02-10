@@ -17,20 +17,20 @@ class CheckoutLayout extends React.Component {
   }
 
   componentDidMount = async () => {
-    let cart = getCart();
-    cart = await post('/api/orders/check', cart);
+    const cart = getCart();
+    const response = await post('/api/orders/check', cart);
     
-    if (cart.error) {
+    if (response.status !== 200) {
       this.setState({
         loading: false,
         error: true
       });
     } else {
-      setCart(cart);
-      this.props.updateCart(cart);
+      setCart(response.data);
+      this.props.updateCart(response.data);
       this.setState({
         loading: false,
-        modified: cart.modified ? true : false
+        modified: response.data.modified ? true : false
       });
     }
   };

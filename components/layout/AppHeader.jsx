@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { Layout, Menu, Row, Col } from 'antd';
 import CartContainer from '../cart/CartContainer';
 import CurrencySelect from '../currency/CurrencySelect';
-import { withRouter } from 'next/router'
+import { withRouter } from 'next/router';
+import ProfileMenu from '../profile/ProfileMenu';
 
 const { Header } = Layout;
 
@@ -40,9 +41,7 @@ const AppHeader = ({ router }) => {
                 <CartContainer />
               </Col>
               <Col>
-                <Link href="/login">
-                  <a style={{color: '#FFF'}}>Login</a>
-                </Link>
+                <ProfileMenu />
               </Col>
             </Row>
           </Col>

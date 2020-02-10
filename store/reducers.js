@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import { cartReducer } from './cart/reducers';
 
 const defaultState = {
-  currency: 'EUR'
+  currency: 'EUR',
+  user: null
 };
 
 export const appReducer = (state = defaultState, action) => {  
@@ -11,6 +12,11 @@ export const appReducer = (state = defaultState, action) => {
       return {
         ...state,
         currency: action.payload
+      }
+    case 'SET_APP_USER':
+      return {
+        ...state,
+        user: action.payload
       }
   
     default:

@@ -13,19 +13,20 @@ class CheckoutForm extends React.Component {
       ...data,
       ...this.props.cart
     });
-    console.log(result);
     
-    if (result && result.errors) {
-      this.showErrors(result.errors)
-    } else if (result && result.modified) {
-      this.props.showMudifiedNotify();
-    } else if (result && result.status === 'confirmed') {
-      removeCart();
-      this.props.updateCart({
-        items: [],
-        total: 0
-      });
-      Router.push('/checkout-success')  
+    if (result.status === 200) {
+      if (result.data && result.data.status === 'confirmed') {
+        removeCart();
+        this.props.updateCart({
+          items: [],
+          total: 0
+        });
+        Router.push('/checkout-success')  
+      } else if (result.data && result.data.modified) {
+        this.props.showMudifiedNotify();
+      }
+    } else if (result.data && result.data.errors) {
+      this.showErrors(result.data.errors);
     }
   };
 
