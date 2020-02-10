@@ -33,17 +33,9 @@ const getAuthHeader = (ctx) => {
   }
 }
 
-const config = (params, ctx) => {
-  const headers = getAuthHeader(ctx)  
-  return {
-    headers: headers,
-    params: params
-  };
-}
-
 export const get = async (endpoint, params = {}, ctx = null, onError = defaultErrorMessage) => {
   return await axios
-    .get(serverHost + endpoint, params, { headers: getAuthHeader(ctx) })
+    .get(serverHost + endpoint, { headers: getAuthHeader(ctx), ...params })
     .then((response) => {
       return response;
     })
