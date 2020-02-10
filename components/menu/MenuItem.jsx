@@ -11,7 +11,7 @@ export default class MenuItem extends React.Component {
         cover={
           <img
             alt="example"
-            src="https://cdn.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg?w=600&h=450"
+            src={ process.env.SERVER_HOST + this.props.item.image }
           />
         }
       >

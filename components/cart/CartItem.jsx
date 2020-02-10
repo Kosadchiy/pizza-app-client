@@ -47,7 +47,7 @@ export default class CartItem extends React.Component {
           <img
             height={100}
             alt={this.props.item.name}
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            src={process.env.SERVER_HOST + this.props.item.image}
           />
         }
       >

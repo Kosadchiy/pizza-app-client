@@ -31,6 +31,7 @@ class MenuItemContent extends React.Component {
       cart.items.push({
         id: this.props.item.id,
         name: this.props.item.name,
+        image: this.props.item.image,
         price: this.state.price,
         option: this.state.option,
         qty: 1
