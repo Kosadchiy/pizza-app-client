@@ -34,7 +34,7 @@ class ProfileMenu extends React.Component {
 
   logout = () => {
     Cookies.remove('user');
-    Cookies.remove('token');
+    Cookies.remove('access_token');
     this.props.setAppUser(null);
   }
 
