@@ -3,30 +3,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getMoneyView } from '../../utils/currencyHelper';
 
-const columns = [
-  { 
-    title: 'Number', 
-    dataIndex: 'id'
-  },
-  { 
-    title: 'Address', 
-    dataIndex: 'address'
-  },
-  { 
-    title: 'Status', 
-    dataIndex: 'status'
-  },
-  { 
-    title: 'Total', 
-    dataIndex: 'total'
-  },
-  {
-    title: 'Date', 
-    dataIndex: 'created_at'
-  }
-];
-
 class ProfileLayout extends React.Component { 
+  columns = () => {
+    return [
+      { 
+        title: 'Number', 
+        dataIndex: 'id'
+      },
+      { 
+        title: 'Address', 
+        dataIndex: 'address'
+      },
+      { 
+        title: 'Status', 
+        dataIndex: 'status'
+      },
+      { 
+        title: 'Total', 
+        dataIndex: 'total',
+        render: text =>(
+          getMoneyView(text, this.props.currency)
+        )
+      },
+      {
+        title: 'Date', 
+        dataIndex: 'created_at'
+      }
+    ];
+  }
+
   expandedRowRender = (record) => {
     const columns = [
       {
@@ -58,7 +63,7 @@ class ProfileLayout extends React.Component {
 			<Table
         scroll={{ x: 'auto' }}
         rowKey={record => record.id}
-        columns={columns}
+        columns={this.columns()}
         expandedRowRender={this.expandedRowRender}
         dataSource={this.props.data.items}
       />
