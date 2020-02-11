@@ -65,7 +65,7 @@ class CheckoutLayout extends React.Component {
               />
             : ''
           }
-          <Col span={8}>
+          <Col lg={{span: 8}} md={{span: 24}} sm={{span: 24}}>
             <List
               itemLayout="vertical"
               size="large"
@@ -90,7 +90,7 @@ class CheckoutLayout extends React.Component {
               )}
             />
           </Col>
-          <Col span={16}>
+          <Col lg={{span: 16}} md={{span: 24}} sm={{span: 24}}>
             <CheckoutForm 
               cart={this.props.cart} 
               showMudifiedNotify={this.showMudifiedNotify} 

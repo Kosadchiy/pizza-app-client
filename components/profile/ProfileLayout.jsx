@@ -56,6 +56,7 @@ class ProfileLayout extends React.Component {
     console.log(this.props);
 		return (
 			<Table
+        scroll={{ x: 'auto' }}
         rowKey={record => record.id}
         columns={columns}
         expandedRowRender={this.expandedRowRender}

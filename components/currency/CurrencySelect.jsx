@@ -31,7 +31,11 @@ class CurrencySelect extends React.Component {
 
 	render () {
 		return (
-			<Select value={this.props.app.currency} style={{ width: 120 }} onChange={this.handleChange}>
+      <Select 
+        style={{width: 80}} 
+        value={this.props.app.currency} 
+        onChange={this.handleChange}
+      >
         <Option value="EUR">EUR</Option>
         <Option value="USD">USD</Option>
       </Select>
