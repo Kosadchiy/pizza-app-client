@@ -1,6 +1,6 @@
 # pizza-app-client
 
-This is a client side of simple pizza ordering application [https://secure-depths-00768.herokuapp.com/](https://secure-depths-00768.herokuapp.com/).
+This is a client side of simple pizza ordering application [https://shielded-wave-64423.herokuapp.com/](https://shielded-wave-64423.herokuapp.com/).
 
 Deploy:
 - Clone repository.
