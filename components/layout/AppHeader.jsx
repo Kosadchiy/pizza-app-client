@@ -12,7 +12,7 @@ const AppHeader = ({ router }) => {
     return (
       <Header>
         <Row type="flex" justify="space-between" style={{textAlign: 'right'}}>
-          <Col>
+          <Col className="app-menu">
             <div className="logo" />
             <Menu
               theme="dark"
@@ -33,7 +33,7 @@ const AppHeader = ({ router }) => {
             </Menu>
           </Col>
           <Col>
-            <Row type="flex" justify="space-between" gutter={20}>
+            <Row type="flex" justify="space-between" gutter={10}>
               <Col>
                 <CurrencySelect />
               </Col>

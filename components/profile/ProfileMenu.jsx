@@ -44,7 +44,7 @@ class ProfileMenu extends React.Component {
         {
           this.props.user ? 
           <Dropdown overlay={this.profileMenu()}>
-            <Button>
+            <Button className="profile-button">
               {this.props.user.email} <Icon type="down" />
             </Button>
           </Dropdown>
