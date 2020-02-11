@@ -23,7 +23,7 @@ export const getUSDRate = async () => {
 
 export const setUSDRate = async () => {
   const rate = await getUSDRate();
-  Cookie.set('USDRate', rate);
+  Cookie.set('USDRate', rate, { expires: 1 });
   return rate;
 } 
 
