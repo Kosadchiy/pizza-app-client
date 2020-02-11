@@ -58,7 +58,6 @@ class ProfileLayout extends React.Component {
   }
 
 	render () {
-    console.log(this.props);
 		return (
 			<Table
         scroll={{ x: 'auto' }}
