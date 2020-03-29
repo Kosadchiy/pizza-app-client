@@ -1,8 +1,5 @@
-import axios from 'axios';
 import Cookie from 'js-cookie';
-
-const endpoint = process.env.FIXER_ENDPOINT;
-const apiKey = process.env.FIXER_API_KEY;
+import { get } from './api';
 
 export const setCurrency = (currency) => {
   Cookie.set('currency', currency);
@@ -13,18 +10,13 @@ export const getCurrency = () => {
 }
 
 export const getUSDRate = async () => {
-  return await axios
-    .get(`${endpoint}?access_key=${apiKey}`)
-    .then((response) => {
-      return 1 / response.data.rates['USD'];
-    })
-    .catch(()=>{});
+  return await get('/api/currency/usd-rate');
 } 
 
 export const setUSDRate = async () => {
-  const rate = await getUSDRate();
-  Cookie.set('USDRate', rate, { expires: 1 });
-  return rate;
+  const response = await getUSDRate();
+  Cookie.set('USDRate', response.data.rate, { expires: 1 });
+  return response.data.rate;
 } 
 
 export const getMoneyView = (moneyInEUR, appCurrency) => {
